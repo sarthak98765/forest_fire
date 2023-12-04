@@ -1,11 +1,10 @@
 streamlit
 pandas
 numpy
-matplotlit
+matplotlib
 pickle
 seaborn
 scikit-learn
 plotly
 cufflinks
 Pillow
-streamlit.components.v1
