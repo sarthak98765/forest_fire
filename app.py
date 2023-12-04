@@ -63,23 +63,28 @@ def main_prediction():
     if st.button("Predict"):
         try:
             result = predict_forest_fire(x, y, month, day, ffmc, dmc, dc, isi, temp, rh, wind, rain)
-            st.success('The output is {}'.format(result))
-            st.balloons()
+            st.success('{}'.format(result))
+            if result == "Your forest is Safe":
+                st.balloons()
 
         except:
             st.error("Please fill up all the inputs and make sure all are in numeric form")
-
-    if st.button("About"):
-        """The Project is Called `Forest Fire Prediction`, this is the [GitHub Repository README](https://github.com/dsc-iem/AI-Hacktoberfest/blob/master/README.md) 
-        ,from here you can learn more about the input parameters."""
 
 def predict_forest_fire(x, y, month, day, ffmc, dmc, dc, isi, temp, rh, wind, rain):
     try:
         # Use the loaded SVM model to make predictions
         prediction = svc_model.predict([[x, y, month, day, ffmc, dmc, dc, isi, temp, rh, wind, rain]])
-        return prediction[0]
+        
+        if prediction[0] == 0:
+            return "Your forest is Safe"
+        elif prediction[0] == 1:
+            return "Your forest is in danger"
+        else:
+            return "Invalid prediction value"
+
     except Exception as e:
-        st.error(f"An error occurred: {str(e)}")
+        return f"An error occurred: {str(e)}"
+
 
 
 
